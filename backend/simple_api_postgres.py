@@ -23,7 +23,12 @@ app = FastAPI(title="Stefan's Task API with PostgreSQL")
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Update with your frontend URL in production
+    allow_origins=[
+        "*",  # Allow all origins for now
+        "https://stefan-tasks-db-1.onrender.com",  # Your frontend URL
+        "http://localhost:3000",
+        "http://localhost:3001"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
