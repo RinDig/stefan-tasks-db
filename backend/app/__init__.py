@@ -1,1 +1,0 @@
-# Stefan's Task Manager Backend

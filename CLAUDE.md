@@ -4,52 +4,56 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is Stefan's Operations Hub - a Kanban-based task management system designed for concrete coordination and client management. The system will integrate with Gmail, Monday.com, Google Calendar, and Twilio for automated task creation and notifications.
+Stefan's Task Management System - A simple, functional Kanban board for managing concrete painting operations. Currently deployed and operational with 25 real tasks from Stefan's business.
 
-## Architecture
+## Current Architecture
 
-The planned architecture follows this flow:
 ```
-User Interface (React) → FastAPI Backend → MCP Server → External Services
-                              ↓
-                        PostgreSQL DB
-                              ↓
-                     Integration Layer:
-                     - Gmail API
-                     - Monday.com
-                     - Google Calendar  
-                     - Twilio SMS
+Frontend (HTML/JS) → FastAPI Backend → PostgreSQL
+     ↓                      ↓              ↓
+  Render.com          Render.com      Render.com
+```
+
+## Live URLs
+
+- **Frontend**: https://stefan-tasks-db-1.onrender.com
+- **Backend API**: https://stefan-tasks-db.onrender.com
+
+## Project Structure
+
+```
+/Kanban App/
+├── frontend/
+│   └── index.html           # Complete UI with inline styles and JS
+├── backend/
+│   ├── simple_api_postgres.py   # FastAPI backend (deployed)
+│   ├── seed_data.py         # Seeds Stefan's 25 real tasks
+│   └── requirements.txt     # Python dependencies
+├── docs/
+│   └── context.md           # Project history and context
+└── CLAUDE.md                # This file
 ```
 
 ## Development Commands
 
-Since the project is in initial development, use these commands as implementation progresses:
-
-### Frontend (React)
-```bash
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Run tests (when implemented)
-npm test
-```
-
 ### Backend (FastAPI)
 ```bash
 # Install dependencies
+cd backend
 pip install -r requirements.txt
 
 # Run development server
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uvicorn simple_api_postgres:app --reload --port 8001
 
-# Run tests (when implemented)
-pytest
+# Seed Stefan's data
+python seed_data.py https://stefan-tasks-db.onrender.com
+```
+
+### Frontend
+```bash
+# No build process needed - pure HTML/CSS/JS
+# For local testing:
+python -m http.server 8000
 ```
 
 ## Core Data Structure
@@ -59,143 +63,103 @@ Tasks follow this schema:
 {
   "id": "uuid",
   "title": "string",
-  "category": "concrete|customer|crew|personal",
+  "category": "concrete|customer|crew|materials|internal|planning|personal",
   "priority": "urgent|high|normal",
   "column": "backlog|this-week|in-progress|done",
   "metadata": {
     "client": "string",
-    "related_emails": [],
+    "notes": "string",
     "due_date": "string",
+    "emoji": "string",
     "auto_created": boolean
   }
 }
 ```
 
-## API Endpoints
+## API Endpoints (Implemented)
 
-Core endpoints to implement:
-- `GET /tasks` - Load board state
-- `POST /tasks` - Create task
-- `PUT /tasks/{id}` - Update/move task
+- `GET /tasks` - Get all tasks
+- `POST /tasks` - Create new task
+- `PUT /tasks/{id}` - Update task (move columns, edit fields)
 - `DELETE /tasks/{id}` - Delete task
-- `POST /agent/process` - MCP agent task processing
-- `POST /agent/analyze` - Analyze email/text for task creation
+- `GET /health` - Health check
 
-## Development Phases
+## Key Features (Completed)
 
-The project follows this implementation roadmap:
+✅ **Phase 1 Complete**: Core MVP with Kanban functionality
+- Drag-and-drop between columns
+- Category filtering
+- Priority indicators (Urgent/Today, High, Normal)
+- Modal-based editing (no browser prompts)
+- PostgreSQL persistence
+- Real-time save on actions
+- 25 pre-loaded real tasks
 
-1. **Phase 1**: Core MVP with basic Kanban functionality
-2. **Phase 2**: Email integration via Gmail API
-3. **Phase 3**: Automation layer with n8n workflows
-4. **Phase 4**: Two-way sync with Monday.com and Google Calendar
+## Future Enhancements (Not Yet Implemented)
 
-## Key Implementation Notes
+When implementing future features, use specialized sub-agents for planning:
 
-- Start with localStorage for persistence, then migrate to PostgreSQL
-- Use FastAPI middleware for CORS handling
-- Implement drag-and-drop using HTML5 drag events
-- Category colors and filters should be data-driven for reusability
-- MCP integration uses Claude MCP Python SDK for intelligent task processing
+### Integration Features
+- **Gmail integration** → Use `gmail-monday-integration-planner` agent
+- **Monday.com sync** → Use `gmail-monday-integration-planner` agent
+- **SMS notifications** → Use `notification-system-architect` agent
+- **n8n automations** → Use `n8n-workflow-designer` agent
 
-## Testing Approach
+### Technical Enhancements
+- **Database changes** → Use `database-state-architect` agent
+- **API expansions** → Use `fastapi-backend-architect` agent
+- **AI/MCP features** → Use `mcp-server-architect` agent
 
-When implementing tests:
-- Frontend: Use Jest and React Testing Library
-- Backend: Use pytest with FastAPI TestClient
-- Integration: Test MCP agent responses with mock data
-- E2E: Consider Playwright for critical user flows
+## Implementation Notes
+
+- Frontend uses pure HTML/CSS/JavaScript (no build process)
+- All styles and scripts are inline in index.html for simplicity
+- Backend is a single FastAPI file for easy deployment
+- Database connection via environment variable DATABASE_URL
+- CORS configured for production URLs
 
 ## Deployment
 
-Planned deployment stack:
-- Frontend: Vercel or GitHub Pages
-- Backend: Railway or Render
-- Database: PostgreSQL (Railway addon or separate)
-- Automation: n8n (self-hosted or cloud)
+Both services deployed on Render.com:
+1. Backend connects to Render PostgreSQL
+2. Frontend served as static site
+3. Auto-deploys from GitHub master branch
 
-## Available Sub-Agents
+## Testing Locally
 
-This project has specialized sub-agents available. You MUST use them for planning before implementation:
+```bash
+# Terminal 1: Backend
+cd backend
+export DATABASE_URL="your_postgres_url"
+uvicorn simple_api_postgres:app --reload --port 8001
 
-1. **gmail-monday-integration-planner** - Research and design Gmail/Monday.com integrations
-2. **database-state-architect** - Design database schemas and state management
-3. **mcp-server-architect** - Plan MCP server architecture for AI features
-4. **notification-system-architect** - Design notification and alert systems
-5. **n8n-workflow-designer** - Create automation workflow plans
-6. **fastapi-backend-architect** - Design FastAPI backend architecture
-
-## CRITICAL: Sub-Agent Delegation Rules
-
-### When to Delegate (MANDATORY)
-Before implementing ANY of these features, delegate to the appropriate sub-agent:
-- Gmail/email integration → gmail-monday-integration-planner
-- Database setup → database-state-architect
-- AI/Claude features → mcp-server-architect
-- SMS/notifications → notification-system-architect
-- Automation workflows → n8n-workflow-designer
-- API endpoints/backend → fastapi-backend-architect
-
-### How to Delegate
-When a feature requires planning:
-1. Use the Task tool with the appropriate subagent_type
-2. Provide clear context about Stefan's task management system
-3. Wait for the agent's plan
-4. ONLY THEN proceed with implementation based on their research
-
-### Implementation Workflow
-1. Receive feature request
-2. Identify which sub-agent(s) needed
-3. Delegate research/planning to sub-agent(s)
-4. Review generated plans
-5. Create implementation checklist from plans
-6. Implement following the researched approach
-7. Update this file with implementation decisions
-
-### Feature-to-Agent Mapping
-| Feature | Required Sub-Agent | Purpose |
-|---------|-------------------|---------|
-| Gmail integration | gmail-monday-integration-planner | Integration strategy and API planning |
-| Monday.com sync | gmail-monday-integration-planner | Webhook and sync architecture |
-| Database schema | database-state-architect | Schema design and migrations |
-| Offline support | database-state-architect | State sync and conflict resolution |
-| API structure | fastapi-backend-architect | Endpoint design and middleware |
-| WebSocket real-time | fastapi-backend-architect | Real-time communication planning |
-| MCP agent brain | mcp-server-architect | Tool schemas and context management |
-| Email notifications | notification-system-architect | Email template and delivery strategy |
-| SMS alerts | notification-system-architect | Twilio integration and alert logic |
-| Daily digests | n8n-workflow-designer | Automated summary workflows |
-| Task automation | n8n-workflow-designer | Trigger-based automations |
-
-## Context Management
-
-### Project Context File
-Maintain project context in: `docs/context.md`
-- Update after EVERY major decision or implementation
-- Include architecture decisions, completed features, and integration details
-
-### Documentation Structure
+# Terminal 2: Frontend
+cd frontend
+python -m http.server 8000
+# Open http://localhost:8000
 ```
-/Kanban App/
-├── docs/
-│   ├── context.md           # Living project context
-│   ├── architecture/        # Sub-agent architecture plans
-│   └── implementation/      # Implementation notes
-├── frontend/                # React/HTML frontend
-├── backend/                 # FastAPI backend
-└── automations/            # n8n workflows
-```
-
-## Anti-Patterns to AVOID
-- ❌ Implementing features without consulting sub-agents
-- ❌ Ignoring sub-agent research/plans
-- ❌ Starting coding before reading all relevant plans
-- ❌ Not documenting implementation decisions
 
 ## Security Considerations
 
-- Never commit API keys or credentials
-- Use environment variables for all sensitive configuration
-- Implement proper authentication before production deployment
-- Validate all user inputs on both frontend and backend
-- Use HTTPS for all API communications
+- Database URL stored as environment variable
+- CORS restricted to production frontend URL
+- Input validation on all API endpoints
+- No credentials in repository
+
+## When Making Changes
+
+1. Test locally first with both frontend and backend running
+2. Ensure API_URL in frontend matches backend location
+3. Run seed_data.py to populate test data
+4. Commit and push to trigger auto-deployment
+
+## Current State
+
+The system is fully functional and deployed. Stefan can:
+- View and manage all 25 real tasks
+- Drag tasks between columns
+- Add/edit/delete tasks with modal interface
+- Filter by category
+- See priority indicators and due dates
+
+Focus is on stability and usability. Future integrations will be added incrementally.
