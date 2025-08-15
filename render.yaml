@@ -1,0 +1,26 @@
+services:
+  # Backend API (using PostgreSQL)
+  - type: web
+    name: stefan-tasks-api
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "cd backend && python simple_api_postgres.py"
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: stefan-tasks
+          property: connectionString
+    autoDeploy: true
+    
+  # Static site for frontend
+  - type: web
+    name: stefan-tasks-frontend
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: ./frontend
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /stefan-board.html
