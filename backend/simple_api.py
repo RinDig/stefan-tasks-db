@@ -4,7 +4,7 @@ This is a simplified version that works with the frontend without complex UUID r
 """
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional, Dict, Any, List
 from datetime import datetime
 import uuid
@@ -28,6 +28,8 @@ DATA_FILE = "tasks_db.json"
 
 # Task model
 class Task(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+    
     id: Optional[str] = None
     title: str
     category: str  # concrete, customer, crew, materials, internal, planning, personal
@@ -70,7 +72,7 @@ async def create_task(task: Task):
         task.id = str(uuid.uuid4())
     
     # Convert to dict and add
-    task_dict = task.dict()
+    task_dict = task.model_dump()
     tasks.append(task_dict)
     
     # Save to file
@@ -88,7 +90,7 @@ async def update_task(task_id: str, task: Task):
         if t["id"] == task_id:
             # Update the task
             task.id = task_id  # Preserve the ID
-            tasks[i] = task.dict()
+            tasks[i] = task.model_dump()
             save_tasks(tasks)
             return tasks[i]
     

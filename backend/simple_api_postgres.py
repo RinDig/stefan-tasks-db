@@ -4,7 +4,7 @@ This connects to your existing Render PostgreSQL database
 """
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional, Dict, Any, List
 from datetime import datetime
 import uuid
@@ -44,6 +44,8 @@ def get_db_connection():
 
 # Task model
 class Task(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+    
     id: Optional[str] = None
     title: str
     category: str  # concrete, customer, crew, materials, internal, planning, personal
