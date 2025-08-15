@@ -12,6 +12,10 @@ import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import json
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Create FastAPI app
 app = FastAPI(title="Stefan's Task API with PostgreSQL")
