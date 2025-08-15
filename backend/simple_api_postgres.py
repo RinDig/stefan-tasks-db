@@ -45,7 +45,11 @@ def get_db_connection():
     if DATABASE_URL.startswith("postgres://"):
         DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
     
-    return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
+    try:
+        return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
+    except Exception as e:
+        print(f"Database connection error: {e}")
+        raise Exception(f"Database connection failed: {str(e)}")
 
 # Task model
 class Task(BaseModel):
@@ -223,5 +227,5 @@ async def delete_all_tasks():
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.environ.get("PORT", 8001))
+    port = int(os.environ.get("PORT", 10000))
     uvicorn.run("simple_api_postgres:app", host="0.0.0.0", port=port, reload=False)
