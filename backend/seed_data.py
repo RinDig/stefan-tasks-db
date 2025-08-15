@@ -3,7 +3,10 @@ import httpx
 from datetime import datetime, timedelta
 import uuid
 
-API_URL = "http://localhost:8001"  # Using simple API on port 8001
+# Use the deployed backend URL for seeding
+import sys
+API_URL = sys.argv[1] if len(sys.argv) > 1 else "https://stefan-tasks-db.onrender.com"
+print(f"Seeding data to: {API_URL}")
 
 # Stefan's real task data
 INITIAL_TASKS = [

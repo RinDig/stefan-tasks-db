@@ -199,43 +199,9 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .task-card:hover .task-actions {
-            opacity: 1;
-        }
-
         .task-card.dragging {
             opacity: 0.5;
             transform: rotate(3deg);
-        }
-
-        /* Task Actions */
-        .task-actions {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            display: flex;
-            gap: 5px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .task-action-btn {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            padding: 4px 8px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.2s;
-        }
-
-        .task-action-btn:hover {
-            background: #f7fafc;
-            border-color: #cbd5e0;
-        }
-
-        .task-action-btn.delete {
-            color: #f56565;
         }
 
         /* Category specific task colors */
@@ -279,23 +245,20 @@
             flex-wrap: wrap;
         }
 
-        .priority-indicator {
+        .priority-high {
             position: absolute;
             top: 8px;
-            left: -4px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+            right: 8px;
+            font-size: 16px;
         }
 
-        .priority-indicator.urgent {
+        .priority-urgent {
             background: #FF4444;
-            box-shadow: 0 0 8px rgba(255, 68, 68, 0.5);
-        }
-
-        .priority-indicator.high {
-            background: #FFA500;
-            box-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
         }
 
         .task-client {
@@ -327,158 +290,6 @@
             background: #f0f9ff;
         }
 
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideIn 0.3s;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #2d3748;
-        }
-
-        .modal-close {
-            font-size: 24px;
-            color: #718096;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-
-        .modal-close:hover {
-            background: #f7fafc;
-            color: #2d3748;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #4a5568;
-        }
-
-        .form-input,
-        .form-select,
-        .form-textarea {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .form-input:focus,
-        .form-select:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: #4299e1;
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background: #4299e1;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #3182ce;
-        }
-
-        .btn-secondary {
-            background: #e2e8f0;
-            color: #4a5568;
-        }
-
-        .btn-secondary:hover {
-            background: #cbd5e0;
-        }
-
-        .btn-danger {
-            background: #f56565;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #e53e3e;
-        }
-
         /* Connection Status */
         .connection-status {
             position: fixed;
@@ -507,23 +318,6 @@
             color: white;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
         /* Responsive */
         @media (max-width: 1200px) {
             .kanban-board {
@@ -533,9 +327,6 @@
 
         @media (max-width: 768px) {
             .kanban-board {
-                grid-template-columns: 1fr;
-            }
-            .form-row {
                 grid-template-columns: 1fr;
             }
         }
@@ -567,6 +358,13 @@
             align-items: center;
             gap: 5px;
             font-size: 13px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -632,11 +430,11 @@
             <div class="legend-title">Priority Indicators</div>
             <div class="legend-items">
                 <div class="legend-item">
-                    <div class="priority-indicator urgent" style="position: static;"></div>
+                    <span>🔥</span>
                     <span>Urgent - Due Today</span>
                 </div>
                 <div class="legend-item">
-                    <div class="priority-indicator high" style="position: static;"></div>
+                    <span>⚡</span>
                     <span>High Priority</span>
                 </div>
                 <div class="legend-item">
@@ -663,7 +461,7 @@
                 <div class="task-area" id="backlog" ondrop="drop(event)" ondragover="allowDrop(event)">
                     <!-- Tasks will be loaded from API -->
                 </div>
-                <button class="add-task-btn" onclick="openTaskModal('backlog')">+ Add Task</button>
+                <button class="add-task-btn" onclick="addTask('backlog')">+ Add Task</button>
             </div>
 
             <!-- This Week Column -->
@@ -677,7 +475,7 @@
                 <div class="task-area" id="this-week" ondrop="drop(event)" ondragover="allowDrop(event)">
                     <!-- Tasks will be loaded from API -->
                 </div>
-                <button class="add-task-btn" onclick="openTaskModal('this-week')">+ Add Task</button>
+                <button class="add-task-btn" onclick="addTask('this-week')">+ Add Task</button>
             </div>
 
             <!-- In Progress Column -->
@@ -691,7 +489,7 @@
                 <div class="task-area" id="in-progress" ondrop="drop(event)" ondragover="allowDrop(event)">
                     <!-- Tasks will be loaded from API -->
                 </div>
-                <button class="add-task-btn" onclick="openTaskModal('in-progress')">+ Add Task</button>
+                <button class="add-task-btn" onclick="addTask('in-progress')">+ Add Task</button>
             </div>
 
             <!-- Done Column -->
@@ -705,71 +503,8 @@
                 <div class="task-area" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
                     <!-- Tasks will be loaded from API -->
                 </div>
-                <button class="add-task-btn" onclick="openTaskModal('done')">+ Add Task</button>
+                <button class="add-task-btn" onclick="addTask('done')">+ Add Task</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Task Modal -->
-    <div class="modal" id="taskModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Add New Task</h2>
-                <button class="modal-close" onclick="closeTaskModal()">×</button>
-            </div>
-            <form id="taskForm" onsubmit="saveTask(event)">
-                <div class="form-group">
-                    <label class="form-label" for="taskTitle">Task Title *</label>
-                    <input type="text" class="form-input" id="taskTitle" required placeholder="Enter task title...">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="taskNotes">Notes / Details</label>
-                    <textarea class="form-textarea" id="taskNotes" placeholder="Add any additional notes or details..."></textarea>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="taskCategory">Category *</label>
-                        <select class="form-select" id="taskCategory" required>
-                            <option value="customer">Customer</option>
-                            <option value="concrete">Concrete</option>
-                            <option value="crew">Crew</option>
-                            <option value="materials">Materials</option>
-                            <option value="internal">Internal</option>
-                            <option value="planning">Planning</option>
-                            <option value="personal">Personal</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="taskPriority">Priority *</label>
-                        <select class="form-select" id="taskPriority" required>
-                            <option value="normal">Normal</option>
-                            <option value="high">High</option>
-                            <option value="urgent">Urgent (Due Today)</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="taskClient">Client Name</label>
-                        <input type="text" class="form-input" id="taskClient" placeholder="e.g., DACG, US Soccer...">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="taskDueDate">Due Date</label>
-                        <input type="date" class="form-input" id="taskDueDate">
-                    </div>
-                </div>
-                
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="closeTaskModal()">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="deleteBtn" onclick="deleteTask()" style="display: none;">Delete</button>
-                    <button type="submit" class="btn btn-primary">Save Task</button>
-                </div>
-            </form>
         </div>
     </div>
 
@@ -782,13 +517,10 @@
         // API Configuration
         const API_URL = window.location.hostname === 'localhost' 
             ? 'http://localhost:8001'
-            : 'https://stefan-tasks-db.onrender.com';
-        
+            : 'https://stefan-tasks-db.onrender.com';  // Your Render backend URL
         let allTasks = [];
         let currentFilter = 'all';
         let draggedTask = null;
-        let currentEditingTask = null;
-        let currentColumn = 'backlog';
 
         // Update date and time
         function updateDateTime() {
@@ -826,17 +558,26 @@
         // Load tasks from API
         async function loadTasks() {
             try {
+                console.log('Loading tasks from:', `${API_URL}/tasks`);
                 const response = await fetch(`${API_URL}/tasks`);
+                console.log('Response status:', response.status);
                 if (response.ok) {
                     allTasks = await response.json();
+                    console.log('Loaded tasks:', allTasks);
                     renderTasks();
                     setConnectionStatus('connected');
                 } else {
+                    const errorText = await response.text();
+                    console.error('Failed to load tasks:', response.status, errorText);
                     throw new Error('Failed to load tasks');
                 }
             } catch (error) {
                 console.error('Error loading tasks:', error);
                 setConnectionStatus('disconnected');
+                // Show more helpful error message
+                if (error.message.includes('Failed to fetch')) {
+                    alert('Failed to connect to backend. Please check if the backend is running at ' + API_URL);
+                }
             }
         }
 
@@ -869,6 +610,8 @@
             card.dataset.taskId = task.id;
             card.dataset.category = task.category;
             
+            const priorityIcon = task.priority === 'urgent' ? '🔥' : 
+                               task.priority === 'high' ? '⚡' : '';
             const emoji = task.metadata?.emoji || '📌';
             const client = task.metadata?.client || '';
             const notes = task.metadata?.notes || '';
@@ -880,14 +623,10 @@
             }
             
             card.innerHTML = `
-                ${task.priority === 'urgent' ? '<div class="priority-indicator urgent"></div>' : ''}
-                ${task.priority === 'high' ? '<div class="priority-indicator high"></div>' : ''}
-                <div class="task-actions">
-                    <button class="task-action-btn" onclick="editTask('${task.id}')">✏️</button>
-                    <button class="task-action-btn delete" onclick="confirmDelete('${task.id}')">🗑️</button>
-                </div>
+                ${priorityIcon ? `<span class="priority-high">${priorityIcon}</span>` : ''}
                 <div class="task-header">
                     <span class="task-category">${task.category}</span>
+                    ${task.priority === 'urgent' ? '<span class="priority-urgent">TODAY</span>' : ''}
                 </div>
                 <div class="task-title">
                     <span class="task-emoji">${emoji}</span>
@@ -896,174 +635,16 @@
                 ${notes || dueDate ? `
                 <div class="task-meta">
                     ${notes ? notes.split(',').map(n => `<span>${n.trim()}</span>`).join('') : ''}
-                    ${dueDate ? `<span>📅 ${formatDate(dueDate)}</span>` : ''}
+                    ${dueDate ? `<span>📅 ${dueDate}</span>` : ''}
                 </div>
                 ` : ''}
             `;
             
             // Add drag event listeners
             card.addEventListener('dragstart', drag);
+            card.addEventListener('dblclick', () => editTask(task));
             
             return card;
-        }
-
-        // Format date for display
-        function formatDate(dateStr) {
-            if (!dateStr) return '';
-            const date = new Date(dateStr);
-            const today = new Date();
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            
-            if (date.toDateString() === today.toDateString()) {
-                return 'Today';
-            } else if (date.toDateString() === tomorrow.toDateString()) {
-                return 'Tomorrow';
-            } else {
-                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            }
-        }
-
-        // Modal functions
-        function openTaskModal(column = 'backlog', task = null) {
-            currentColumn = column;
-            currentEditingTask = task;
-            
-            const modal = document.getElementById('taskModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const deleteBtn = document.getElementById('deleteBtn');
-            
-            if (task) {
-                modalTitle.textContent = 'Edit Task';
-                document.getElementById('taskTitle').value = task.title;
-                document.getElementById('taskNotes').value = task.metadata?.notes || '';
-                document.getElementById('taskCategory').value = task.category;
-                document.getElementById('taskPriority').value = task.priority;
-                document.getElementById('taskClient').value = task.metadata?.client || '';
-                document.getElementById('taskDueDate').value = task.metadata?.due_date || '';
-                deleteBtn.style.display = 'inline-block';
-            } else {
-                modalTitle.textContent = 'Add New Task';
-                document.getElementById('taskForm').reset();
-                deleteBtn.style.display = 'none';
-            }
-            
-            modal.classList.add('show');
-        }
-
-        function closeTaskModal() {
-            document.getElementById('taskModal').classList.remove('show');
-            currentEditingTask = null;
-        }
-
-        // Save task (create or update)
-        async function saveTask(event) {
-            event.preventDefault();
-            
-            const taskData = {
-                title: document.getElementById('taskTitle').value,
-                category: document.getElementById('taskCategory').value,
-                priority: document.getElementById('taskPriority').value,
-                column: currentEditingTask ? currentEditingTask.column : currentColumn,
-                metadata: {
-                    client: document.getElementById('taskClient').value,
-                    notes: document.getElementById('taskNotes').value,
-                    due_date: document.getElementById('taskDueDate').value,
-                    emoji: '📌',
-                    auto_created: false
-                }
-            };
-            
-            setConnectionStatus('saving');
-            
-            try {
-                let response;
-                if (currentEditingTask) {
-                    // Update existing task
-                    response = await fetch(`${API_URL}/tasks/${currentEditingTask.id}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ ...currentEditingTask, ...taskData })
-                    });
-                } else {
-                    // Create new task
-                    response = await fetch(`${API_URL}/tasks`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(taskData)
-                    });
-                }
-                
-                if (response.ok) {
-                    await loadTasks();
-                    closeTaskModal();
-                    setConnectionStatus('connected');
-                } else {
-                    throw new Error('Failed to save task');
-                }
-            } catch (error) {
-                console.error('Error saving task:', error);
-                setConnectionStatus('disconnected');
-                alert('Failed to save task. Please try again.');
-            }
-        }
-
-        // Edit task
-        function editTask(taskId) {
-            const task = allTasks.find(t => t.id === taskId);
-            if (task) {
-                openTaskModal(task.column, task);
-            }
-        }
-
-        // Delete task
-        async function deleteTask() {
-            if (!currentEditingTask) return;
-            
-            if (confirm('Are you sure you want to delete this task?')) {
-                setConnectionStatus('saving');
-                
-                try {
-                    const response = await fetch(`${API_URL}/tasks/${currentEditingTask.id}`, {
-                        method: 'DELETE'
-                    });
-                    
-                    if (response.ok) {
-                        await loadTasks();
-                        closeTaskModal();
-                        setConnectionStatus('connected');
-                    } else {
-                        throw new Error('Failed to delete task');
-                    }
-                } catch (error) {
-                    console.error('Error deleting task:', error);
-                    setConnectionStatus('disconnected');
-                    alert('Failed to delete task. Please try again.');
-                }
-            }
-        }
-
-        // Quick delete from card
-        async function confirmDelete(taskId) {
-            if (confirm('Delete this task?')) {
-                setConnectionStatus('saving');
-                
-                try {
-                    const response = await fetch(`${API_URL}/tasks/${taskId}`, {
-                        method: 'DELETE'
-                    });
-                    
-                    if (response.ok) {
-                        await loadTasks();
-                        setConnectionStatus('connected');
-                    } else {
-                        throw new Error('Failed to delete task');
-                    }
-                } catch (error) {
-                    console.error('Error deleting task:', error);
-                    setConnectionStatus('disconnected');
-                }
-            }
         }
 
         // Drag and Drop functionality
@@ -1193,19 +774,85 @@
             document.getElementById('progress-tasks').textContent = columnCounts['in-progress'];
         }
 
+        // Add new task
+        async function addTask(column) {
+            const taskText = prompt('Enter task description:');
+            if (!taskText) return;
+            
+            const category = prompt('Category: customer, concrete, crew, materials, internal, planning, or personal?') || 'customer';
+            const priority = confirm('Is this high priority?') ? 
+                            (confirm('Is it URGENT (due today)?') ? 'urgent' : 'high') : 'normal';
+            const client = prompt('Client name (optional):');
+            
+            const newTask = {
+                id: 'temp-' + Date.now(),
+                title: taskText,
+                category: category,
+                priority: priority,
+                column: column,
+                metadata: {
+                    client: client || '',
+                    emoji: '📌',
+                    auto_created: false
+                }
+            };
+            
+            // Save to backend
+            setConnectionStatus('saving');
+            try {
+                const response = await fetch(`${API_URL}/tasks`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newTask)
+                });
+                
+                if (response.ok) {
+                    const savedTask = await response.json();
+                    allTasks.push(savedTask);
+                    renderTasks();
+                    setConnectionStatus('connected');
+                } else {
+                    throw new Error('Failed to create task');
+                }
+            } catch (error) {
+                console.error('Error creating task:', error);
+                setConnectionStatus('disconnected');
+            }
+        }
+
+        // Edit task
+        async function editTask(task) {
+            const newTitle = prompt('Edit task:', task.title);
+            if (newTitle && newTitle !== task.title) {
+                task.title = newTitle;
+                
+                setConnectionStatus('saving');
+                try {
+                    const response = await fetch(`${API_URL}/tasks/${task.id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(task)
+                    });
+                    
+                    if (response.ok) {
+                        renderTasks();
+                        setConnectionStatus('connected');
+                    } else {
+                        throw new Error('Failed to update task');
+                    }
+                } catch (error) {
+                    console.error('Error updating task:', error);
+                    setConnectionStatus('disconnected');
+                    loadTasks(); // Reload to restore correct state
+                }
+            }
+        }
+
         // Initialize
         loadTasks();
         
         // Auto-refresh every 30 seconds
         setInterval(loadTasks, 30000);
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('taskModal');
-            if (event.target === modal) {
-                closeTaskModal();
-            }
-        }
     </script>
 </body>
 </html>
