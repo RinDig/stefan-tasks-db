@@ -514,12 +514,10 @@
     </div>
 
     <script>
-        // API Configuration - Update this after deploying backend to Railway
-        // For local development: 'http://localhost:8001'
-        // For production: Replace with your Railway URL like 'https://your-app.railway.app'
+        // API Configuration
         const API_URL = window.location.hostname === 'localhost' 
             ? 'http://localhost:8001'
-            : 'https://stefan-tasks-api.up.railway.app';  // UPDATE THIS with your Railway URL
+            : 'https://stefan-tasks-db.onrender.com';  // Your Render backend URL
         let allTasks = [];
         let currentFilter = 'all';
         let draggedTask = null;
